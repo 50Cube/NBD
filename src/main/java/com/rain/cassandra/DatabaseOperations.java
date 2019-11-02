@@ -6,9 +6,10 @@ import com.datastax.driver.core.Session;
 
 public class DatabaseOperations
 {
+    private ResultSet results;
     public DatabaseOperations() {}
 
-    public void printTable(ResultSet results)
+    private void printTable(ResultSet results)
     {
         for (Row row : results)
         {
@@ -19,7 +20,32 @@ public class DatabaseOperations
 
     public void getTable(Session session)
     {
-        ResultSet results = session.execute("select * from Rain");
+        results = session.execute("select * from Rain");
+        printTable(results);
+    }
+
+    public void getTableLimited(Session session, int limit)
+    {
+        results = session.execute("select * from Rain limit " + limit);
+        printTable(results);
+    }
+
+    public void getTableWhereCity(Session session, String city)
+    {
+        results = session.execute("select * from Rain where CITY=" + city + " allow filtering");
+        printTable(results);
+    }
+
+    public void insert(Session session, String row)
+    {
+        results = session.execute("insert into Rain (DATE, PRCP, TMAX, TMIN, RAIN, CITY, CONTINENT, TAMP, PRESSURE) " +
+                "values " + row);
+        printTable(results);
+    }
+
+    public void deleteByCity(Session session, String city)
+    {
+        results = session.execute("delete from Rain where CITY=" + city + " allow filtering");
         printTable(results);
     }
 }
