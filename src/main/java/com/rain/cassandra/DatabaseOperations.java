@@ -30,9 +30,15 @@ public class DatabaseOperations
         printTable(results);
     }
 
+    public void getTableWhereDate(Session session, String date)
+    {
+        results = session.execute("select * from Rain where DATE='" + date + "' allow filtering");
+        printTable(results);
+    }
+
     public void getTableWhereCity(Session session, String city)
     {
-        results = session.execute("select * from Rain where CITY=" + city + " allow filtering");
+        results = session.execute("select * from Rain where CITY='" + city + "' allow filtering");
         printTable(results);
     }
 
@@ -43,9 +49,21 @@ public class DatabaseOperations
         printTable(results);
     }
 
+    public void updateCityByDate(Session session, String date, String city, String continent)
+    {
+        results = session.execute("update Rain set CITY ='" + city + "', CONTINENT ='" + continent + "' where DATE = '" + date + "'");
+        printTable(results);
+    }
+
+    public void deleteByDate(Session session, String date)
+    {
+        results = session.execute("delete from Rain where DATE='" + date + "' allow filtering");
+        printTable(results);
+    }
+
     public void deleteByCity(Session session, String city)
     {
-        results = session.execute("delete from Rain where CITY=" + city + " allow filtering");
+        results = session.execute("delete from Rain where CITY='" + city + "' allow filtering");
         printTable(results);
     }
 }

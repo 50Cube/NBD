@@ -22,13 +22,18 @@ public class App
         //db.getTable(session);
         db.getTableLimited(session, 5);
         System.out.println();
-        db.insert(session, "('2019-11-02', 0, 12, 3, False, 'Zgierz', 'Europe', 9, 1010)");
+        //db.insert(session, "('2019-11-02', 0, 12, 3, False, 'Zgierz', 'Europe', 9, 1010)");
         System.out.println();
-        db.getTableWhereCity(session, "'Zgierz'");
+        db.getTableWhereCity(session, "Zgierz");
         System.out.println();
-//        db.deleteByCity(session, "'Zgierz'");
+//        db.deleteByCity(session, "Zgierz");
 //        System.out.println();
-//        db.getTableWhereCity(session, "'Zgierz'");
+//        db.getTableWhereCity(session, "Zgierz");
+        db.updateCityByDate(session, "2019-11-02", "Lodz", "Europe");
+        System.out.println();
+        db.getTableWhereCity(session, "Lodz");
+        System.out.println();
+        db.getTableWhereDate(session, "2019-11-02");
 
 
         cluster.close();
