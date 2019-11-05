@@ -7,7 +7,11 @@ import com.datastax.driver.core.Session;
 public class DatabaseOperations
 {
     private ResultSet results;
-    public DatabaseOperations() {}
+    private JSONfile jsonFile;
+    public DatabaseOperations() {
+        jsonFile = new JSONfile();
+    }
+
 
     private void printTable(ResultSet results)
     {
@@ -36,6 +40,22 @@ public class DatabaseOperations
         printTable(results);
     }
 
+    public void getTableWhereDateToJSON(Session session, String date)
+    {
+        results = session.execute("select * from Rain where DATE='" + date + "' allow filtering");
+        for (Row row : results)
+        {
+            jsonFile.saveToJSON(row.getDate("DATE").toString(),
+                    row.getFloat("PRCP"),
+                    row.getInt("TMAX"),
+                    row.getInt("TMIN"),
+                    row.getBool("RAIN"),
+                    row.getString("CITY"),
+                    row.getString("CONTINENT"),
+                    row.getInt("PRESSURE"));
+        }
+    }
+
     public void getTableWhereCity(Session session, String city)
     {
         results = session.execute("select * from Rain where CITY='" + city + "' allow filtering");
@@ -49,6 +69,12 @@ public class DatabaseOperations
         printTable(results);
     }
 
+    public void insertFromJSON(Session session, String file)
+    {
+        //System.out.println(jsonFile.readFromJSON(file));
+        results = session.execute("insert into Rain json " + jsonFile.readFromJSON(file));
+    }
+
     public void updateCityByDate(Session session, String date, String city, String continent)
     {
         results = session.execute("update Rain set CITY ='" + city + "', CONTINENT ='" + continent + "' where DATE = '" + date + "'");
@@ -57,10 +83,11 @@ public class DatabaseOperations
 
     public void deleteByDate(Session session, String date)
     {
-        results = session.execute("delete from Rain where DATE='" + date + "' allow filtering");
+        results = session.execute("delete from Rain where DATE='" + date + "'");
         printTable(results);
     }
 
+    // DO NAPRAWIENIA
     public void deleteByCity(Session session, String city)
     {
         results = session.execute("delete from Rain where CITY='" + city + "' allow filtering");

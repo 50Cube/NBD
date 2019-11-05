@@ -2,6 +2,11 @@ package com.rain.cassandra;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
+import org.json.simple.JSONObject;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class App 
 {
@@ -34,6 +39,12 @@ public class App
         db.getTableWhereCity(session, "Lodz");
         System.out.println();
         db.getTableWhereDate(session, "2019-11-02");
+        db.getTableWhereDateToJSON(session, "2019-11-02");
+
+        //db.insertFromJSON(session, "insertJSON.json");
+        System.out.println();
+        db.getTableWhereDate(session, "2019-11-05");
+        db.getTableWhereCity(session, "Pabianice");
 
 
         cluster.close();
