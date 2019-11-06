@@ -45,6 +45,12 @@ public class App
         System.out.println();
         db.getTableWhereDate(session, "2019-11-05");
         db.getTableWhereCity(session, "Pabianice");
+        System.out.println();
+        db.getTableWherePRCPisMore(session, 3.0f);
+        System.out.println();
+        db.getTableWhereTMAXisMore(session, 98);
+        System.out.println();
+        db.getTableWhereTINisLess(session, 5);
 
 
         cluster.close();

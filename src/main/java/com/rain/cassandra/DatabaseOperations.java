@@ -62,6 +62,30 @@ public class DatabaseOperations
         printTable(results);
     }
 
+    public void getTableWhereContinent(Session session, String continent)
+    {
+        results = session.execute("select * from Rain where CONTINENT='" + continent + "' allow filtering");
+        printTable(results);
+    }
+
+    public void getTableWherePRCPisMore(Session session, float prcp)
+    {
+        results = session.execute("Select * from Rain where PRCP>" + prcp + " allow filtering");
+        printTable(results);
+    }
+
+    public void getTableWhereTMAXisMore(Session session, int tmax)
+    {
+        results = session.execute("Select * from Rain where TMAX>" + tmax + " allow filtering");
+        printTable(results);
+    }
+
+    public void getTableWhereTINisLess(Session session, int tmin)
+    {
+        results = session.execute("Select * from Rain where TMIN<" + tmin + " allow filtering");
+        printTable(results);
+    }
+
     public void insert(Session session, String row)
     {
         results = session.execute("insert into Rain (DATE, PRCP, TMAX, TMIN, RAIN, CITY, CONTINENT, TAMP, PRESSURE) " +
@@ -84,13 +108,6 @@ public class DatabaseOperations
     public void deleteByDate(Session session, String date)
     {
         results = session.execute("delete from Rain where DATE='" + date + "'");
-        printTable(results);
-    }
-
-    // DO NAPRAWIENIA
-    public void deleteByCity(Session session, String city)
-    {
-        results = session.execute("delete from Rain where CITY='" + city + "' allow filtering");
         printTable(results);
     }
 }
