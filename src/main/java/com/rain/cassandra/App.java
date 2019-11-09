@@ -50,7 +50,7 @@ public class App
         System.out.println();
         db.getTableWhereTMAXisMore(session, 98);
         System.out.println();
-        db.getTableWhereTINisLess(session, 5);
+        db.getTableWhereTMINisLess(session, 5);
 
 
         cluster.close();

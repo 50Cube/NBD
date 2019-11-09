@@ -68,11 +68,24 @@ public class DatabaseOperations
         printTable(results);
     }
 
+    public void getTableWherePRCP(Session session, float prcp)
+    {
+        results = session.execute("select * from Rain where PRCP=" + prcp + " allow filtering");
+        printTable(results);
+    }
+
     public void getTableWherePRCPisMore(Session session, float prcp)
     {
         results = session.execute("Select * from Rain where PRCP>" + prcp + " allow filtering");
         printTable(results);
     }
+
+    public void getTableWhereTMAX(Session session, int tmax)
+    {
+        results = session.execute("select * from Rain where TMAX=" + tmax + " allow filtering");
+        printTable(results);
+    }
+
 
     public void getTableWhereTMAXisMore(Session session, int tmax)
     {
@@ -80,9 +93,21 @@ public class DatabaseOperations
         printTable(results);
     }
 
-    public void getTableWhereTINisLess(Session session, int tmin)
+    public void getTableWhereTMIN(Session session, int tmin)
+    {
+        results = session.execute("select * from Rain where TMIN=" + tmin + " allow filtering");
+        printTable(results);
+    }
+
+    public void getTableWhereTMINisLess(Session session, int tmin)
     {
         results = session.execute("Select * from Rain where TMIN<" + tmin + " allow filtering");
+        printTable(results);
+    }
+
+    public void getTableWherePressure(Session session, int pressure)
+    {
+        results = session.execute("select * from Rain where PRESSURE=" + pressure + " allow filtering");
         printTable(results);
     }
 
